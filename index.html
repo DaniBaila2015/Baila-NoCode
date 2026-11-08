@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No-Code para GitHub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>⚡ Gerador No-Code para GitHub</h1>
+    <p>Configura o teu site visualmente e gera vários ficheiros direto no GitHub.</p>
+
+    <div class="card">
+      <h2>1. Configura o Teu Site (No-Code)</h2>
+      
+      <label>Título do Site:</label>
+      <input type="text" id="siteTitle" value="O Meu Projeto Incrível">
+
+      <label>Subtítulo / Descrição:</label>
+      <input type="text" id="siteDesc" value="Criado sem escrever uma linha de código.">
+
+      <label>Cor Principal:</label>
+      <input type="color" id="siteColor" value="#2563eb">
+
+      <label>Texto do Botão:</label>
+      <input type="text" id="btnText" value="Saber Mais">
+
+      <label class="checkbox-label">
+        <input type="checkbox" id="includeDarkMode" checked>
+        Incluir botão de Modo Escuro (gera ficheiro JS extra)
+      </label>
+    </div>
+
+    <div class="card">
+      <h2>2. Dados do GitHub</h2>
+      
+      <label>Teu Utilizador GitHub:</label>
+      <input type="text" id="ghUser" placeholder="ex: joaosilva">
+
+      <label>Nome do Novo Repositório:</label>
+      <input type="text" id="ghRepo" placeholder="ex: meu-site-gerado">
+
+      <label>GitHub Personal Access Token (permissão 'repo'):</label>
+      <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx">
+    </div>
+
+    <div class="actions">
+      <button onclick="gerarPreview()" class="btn-secondary">👁️ Ver Código Gerado</button>
+      <button onclick="enviarParaGitHub()" class="btn-primary">🚀 Criar no GitHub</button>
+    </div>
+
+    <div id="status" class="status"></div>
+
+    <div id="previewArea" class="card hidden">
+      <h2>Ficheiros que serão criados:</h2>
+      <div id="filesList"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
