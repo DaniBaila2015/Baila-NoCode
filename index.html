@@ -3,59 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>No-Code para GitHub</title>
+  <title>Baila NoCode — Construtor Visual para GitHub</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>⚡ Gerador No-Code para GitHub</h1>
-    <p>Configura o teu site visualmente e gera vários ficheiros direto no GitHub.</p>
+  <div class="app-layout">
+    <!-- Barra Lateral de Edição -->
+    <aside class="sidebar">
+      <div class="brand">💃 Baila NoCode</div>
+      <p class="tagline">Desenha visualmente. Publica código real.</p>
 
-    <div class="card">
-      <h2>1. Configura o Teu Site (No-Code)</h2>
-      
-      <label>Título do Site:</label>
-      <input type="text" id="siteTitle" value="O Meu Projeto Incrível">
+      <!-- Secção de Login OAuth Oficial -->
+      <div class="auth-box" id="authBox">
+        <button onclick="iniciarLoginGitHub()" class="btn-github" id="loginBtn">
+          🐙 Entrar com GitHub
+        </button>
+        <div id="deviceCodeArea" class="device-code hidden">
+          <p>1. Copia este código:</p>
+          <strong id="userCode">----</strong>
+          <p>2. Autoriza o <b>Baila NoCode</b> no GitHub:</p>
+          <a id="verifyLink" href="#" target="_blank" class="btn-link">Autorizar Baila NoCode ↗</a>
+        </div>
+        <div id="userLogged" class="logged-info hidden">
+          ✅ Conectado como <strong id="ghUsername"></strong>
+        </div>
+      </div>
 
-      <label>Subtítulo / Descrição:</label>
-      <input type="text" id="siteDesc" value="Criado sem escrever uma linha de código.">
+      <!-- Blocos No-Code -->
+      <div class="controls">
+        <h3>Adicionar Blocos</h3>
+        <div class="block-buttons">
+          <button onclick="adicionarBloco('titulo')">+ Título</button>
+          <button onclick="adicionarBloco('texto')">+ Texto</button>
+          <button onclick="adicionarBloco('botao')">+ Botão</button>
+          <button onclick="adicionarBloco('imagem')">+ Imagem</button>
+        </div>
 
-      <label>Cor Principal:</label>
-      <input type="color" id="siteColor" value="#2563eb">
+        <h3>Estilo da Página</h3>
+        <label>Cor de Fundo:</label>
+        <input type="color" id="bgColor" value="#0f172a" onchange="atualizarPreview()">
+        
+        <label>Cor do Cartão:</label>
+        <input type="color" id="cardColor" value="#1e293b" onchange="atualizarPreview()">
 
-      <label>Texto do Botão:</label>
-      <input type="text" id="btnText" value="Saber Mais">
+        <label>Cor de Destaque (Botões):</label>
+        <input type="color" id="accentColor" value="#ec4899" onchange="atualizarPreview()">
 
-      <label class="checkbox-label">
-        <input type="checkbox" id="includeDarkMode" checked>
-        Incluir botão de Modo Escuro (gera ficheiro JS extra)
-      </label>
-    </div>
+        <h3>Publicar no GitHub</h3>
+        <input type="text" id="repoName" placeholder="ex: meu-site-baila">
+        <button onclick="publicarProjeto()" class="btn-publish">🚀 Gerar Código e Publicar</button>
+        <div id="statusMsg" class="status-msg"></div>
+      </div>
+    </aside>
 
-    <div class="card">
-      <h2>2. Dados do GitHub</h2>
-      
-      <label>Teu Utilizador GitHub:</label>
-      <input type="text" id="ghUser" placeholder="ex: joaosilva">
-
-      <label>Nome do Novo Repositório:</label>
-      <input type="text" id="ghRepo" placeholder="ex: meu-site-gerado">
-
-      <label>GitHub Personal Access Token (permissão 'repo'):</label>
-      <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx">
-    </div>
-
-    <div class="actions">
-      <button onclick="gerarPreview()" class="btn-secondary">👁️ Ver Código Gerado</button>
-      <button onclick="enviarParaGitHub()" class="btn-primary">🚀 Criar no GitHub</button>
-    </div>
-
-    <div id="status" class="status"></div>
-
-    <div id="previewArea" class="card hidden">
-      <h2>Ficheiros que serão criados:</h2>
-      <div id="filesList"></div>
-    </div>
+    <!-- Área Central de Pré-visualização (Estilo Carrd) -->
+    <main class="canvas-area">
+      <div class="preview-frame" id="previewFrame">
+        <div class="carrd-container" id="carrdContainer">
+          <!-- Blocos editáveis aparecem aqui -->
+        </div>
+      </div>
+    </main>
   </div>
 
   <script src="app.js"></script>
